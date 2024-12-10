@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
+import 'package:image/image.dart';
 import 'package:statusbarz/src/statusbarz_exception.dart';
 import 'package:statusbarz/src/statusbarz_observer.dart';
 import 'package:statusbarz/src/statusbarz_theme.dart';
@@ -114,8 +115,8 @@ class Statusbarz {
         /// Calculates the average color for the status bar
         for (var yCoord = 0; yCoord < statusHeight.toInt(); yCoord++) {
           for (var xCoord = 0; xCoord < bitmap!.width; xCoord++) {
-            final pixel = bitmap.getPixel(xCoord, yCoord);
-            luminance += pixel.luminance;
+            final Pixel pixel = bitmap.getPixel(xCoord, yCoord);
+            luminance += _getLuminance(pixel);
             pixels++;
           }
         }
@@ -140,5 +141,21 @@ class Statusbarz {
   /// Changes the text and icon color on the statusbar to a light color
   void setLightStatusBar() {
     SystemChrome.setSystemUIOverlayStyle(theme.lightStatusBar);
+  }
+
+  /// Calculate the luminance of a pixel.
+  double _getLuminance(Pixel pixel) {
+    // Extract ARGB values
+    num red = pixel.r;
+    num green = pixel.g;
+    num blue = pixel.b;
+
+    // Normalize the color values to [0, 1]
+    double r = red / 255.0;
+    double g = green / 255.0;
+    double b = blue / 255.0;
+
+    // Calculate luminance
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
   }
 }
