@@ -42,12 +42,12 @@ class StatusbarzObserver extends NavigatorObserver {
 
   void _handleRouteAdded(Route<dynamic>? route) {
     if (route is ModalRoute) {
-      final status = route.animation!.status;
+      final status = route.animation?.status;
 
       if (status != AnimationStatus.completed) {
         /// Assures there are not duplicate listeners
-        route.animation!.removeStatusListener(_routeAddedListener);
-        route.animation!.addStatusListener(_routeAddedListener);
+        route.animation?.removeStatusListener(_routeAddedListener);
+        route.animation?.addStatusListener(_routeAddedListener);
 
         return;
       }
