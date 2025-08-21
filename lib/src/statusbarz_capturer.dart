@@ -1,5 +1,6 @@
 // ignore_for_file: comment_references
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:statusbarz/statusbarz.dart';
 
@@ -23,10 +24,10 @@ import 'package:statusbarz/statusbarz.dart';
 class StatusbarzCapturer extends StatelessWidget {
   /// {@macro statusbarz_capturer}
   const StatusbarzCapturer({
-    Key? key,
+    super.key,
     required this.child,
     this.theme,
-  }) : super(key: key);
+  });
 
   /// The child widget
   final Widget child;
@@ -36,6 +37,11 @@ class StatusbarzCapturer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb) {
+      // On web, we don't need to capture the status bar color
+      // as it is not applicable.
+      return child;
+    }
     if (theme != null) Statusbarz.instance.setTheme(theme!);
 
     return RepaintBoundary(

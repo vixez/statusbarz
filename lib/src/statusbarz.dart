@@ -115,7 +115,7 @@ class Statusbarz {
         /// Calculates the average color for the status bar
         for (var yCoord = 0; yCoord < statusHeight.toInt(); yCoord++) {
           for (var xCoord = 0; xCoord < bitmap!.width; xCoord++) {
-            final Pixel pixel = bitmap.getPixel(xCoord, yCoord);
+            final pixel = bitmap.getPixel(xCoord, yCoord);
             luminance += _getLuminance(pixel);
             pixels++;
           }
@@ -146,14 +146,14 @@ class Statusbarz {
   /// Calculate the luminance of a pixel.
   double _getLuminance(Pixel pixel) {
     // Extract ARGB values
-    num red = pixel.r;
-    num green = pixel.g;
-    num blue = pixel.b;
+    final red = pixel.r;
+    final green = pixel.g;
+    final blue = pixel.b;
 
     // Normalize the color values to [0, 1]
-    double r = red / 255.0;
-    double g = green / 255.0;
-    double b = blue / 255.0;
+    final r = red / 255.0;
+    final g = green / 255.0;
+    final b = blue / 255.0;
 
     // Calculate luminance
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;
